@@ -44,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
             IconButton(
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return FormScreen();
+                    return const FormScreen();
                   }));
                 },
                 icon: const Icon(Icons.add)),
@@ -58,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class NavigationDrawer extends StatelessWidget {
-  const NavigationDrawer({Key? key}) : super(key: key);
+  const NavigationDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
