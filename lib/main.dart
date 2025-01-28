@@ -1,3 +1,4 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/favourites_page.dart';
 import 'package:flutter_application_2/screens/form_screen.dart';
@@ -34,26 +35,60 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int index = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: Text(widget.title),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const FormScreen();
-                  }));
-                },
-                icon: const Icon(Icons.add)),
-          ],
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text(widget.title),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return const FormScreen();
+                }));
+              },
+              icon: const Icon(Icons.add)),
+        ],
+      ),
+      drawer: const NavigationDrawer(),
+      body: Center(
+        child: Text('$index',
+            style: const TextStyle(
+                fontSize: 120,
+                fontWeight: FontWeight.bold,
+                color: Colors.black)),
+      ),
+      bottomNavigationBar: Theme(
+        data: Theme.of(context).copyWith(
+          iconTheme: const IconThemeData(color: Colors.orange),
         ),
-        drawer: const NavigationDrawer(),
-        body: Center(
-          child: Container(),
-        ));
+        child: CurvedNavigationBar(
+          index: index,
+          height: 60.0,
+          items: const <Widget>[
+            Icon(Icons.home, size: 30),
+            Icon(Icons.search, size: 30),
+            Icon(Icons.favorite, size: 30),
+            Icon(Icons.settings, size: 30),
+            Icon(Icons.person, size: 30),
+          ],
+          color: Colors.white,
+          buttonBackgroundColor: Colors.blue.shade200,
+          backgroundColor: Colors.transparent,
+          animationCurve: Curves.easeInOut,
+          animationDuration: const Duration(milliseconds: 600),
+          onTap: (index) {
+            setState(() {
+              this.index = index;
+            });
+          },
+          letIndexChange: (value) => true,
+        ),
+      ),
+    );
   }
 }
 
